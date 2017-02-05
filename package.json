@@ -1,8 +1,14 @@
 {
   "name": "snake-react",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tokgozmusa/snake-react.git"
+  },
+  "homepage": "http://tokgozmusa.github.io/snake-react",
   "private": true,
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
@@ -14,6 +20,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build&&gh-pages -d build"
   }
 }
