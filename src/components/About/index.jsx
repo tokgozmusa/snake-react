@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import './style.css';
 
 class About extends Component {
@@ -6,7 +7,11 @@ class About extends Component {
         return (
             <div>
                 <h1>About</h1>
+                <div>
+                    <Link to="/">Home</Link>
+                </div>
             </div>
+
         );
     }
 }
