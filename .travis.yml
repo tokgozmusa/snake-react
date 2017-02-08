@@ -1,12 +1,21 @@
+sudo: false
 language: node_js
 node_js:
-  - "node"
-
-before_deploy:
-    npm run build
-
+  - node
+cache:
+  directories:
+  - node_modules
+script:
+  - snyk auth $SNYK_API_KEY
+  - snyk monitor
+  - npm run build
 deploy:
-  provider: surge
+- provider: heroku
+  api_key:
+    secure: mlQF1z3xgeof8/OZtF6NPUxQ1/T4G01lnvZfJwYfvLD9kX0eL014Ipi55mw3UC9N1Hx6sTVF+OQ7EIUnpCb/P7cR7BrJ6OCsX8lETGV2opG6L9cVghdXA0YT8ML0lRcVAxABIRUTnAT8oDfq3Lr7yztlkR+tqM5Oh1klnWJLPdhC9VJ+wLaofS2IRQIiRuryMsE49MmdxVwa/ZjjyMVlsQbnJX1NIF3FD5K8rRx7ugIYf6PLkacst6LYiCjiBCyIWKF66lqvl2e5SYLUPn9lp96OTBUl9YqrtJkCLBSgnDa6mZzmtNhXaTNbp9W7A/U5+gwFo4tO9JKxvg3OY36YjtcqYtDckmdvcgj5fyHpdtFjZBLtEHTqDE38seQYjIUwOAa9S4sOg4KwT6gJqzrFV9IS5Kzs2IbNCfa2R0eu1g6IRuCnfLKraX+vjwcdZbNcNouOKYVYDS69nBjtc2ZtQ+KHw3WCJO++0FD1iFAH3UE4YEtJ/157Y0v/iUt+BTnx3N8GDdFmspao/vHqhyHySKovjQIbPHPywI8pZ+dRfJYfwzTB334CqcviGBAvIewMAF2yoQmWK8ieHJcC7t9hVrPgGhs2Hh5IcAzHdFds9Ugy66KR/tqgfnKEb5QTqqFklegtoArHd4Z06obpHhR7e3/QJIFwgpD0l25/A8FC94A=
+  app: snakereact
+  skip_cleanup: true
+- provider: surge
   project: ./build
   domain: snakereact.surge.sh
   skip_cleanup: true
