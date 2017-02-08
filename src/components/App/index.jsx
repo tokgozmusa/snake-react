@@ -11,8 +11,11 @@ class App extends Component {
                     <h2>Welcome to React</h2>
                 </div>
                 <p className="App-intro">
-                    Snake will move here soon :) deployed by Travis-CI
+                    Snake will move here soon :)
                 </p>
+                <div>
+                    Travis-CI -> Deploy: Surge & Heroku -> fix :) v2
+                </div>
             </div>
         );
     }
