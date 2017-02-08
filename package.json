@@ -5,22 +5,23 @@
     "type": "git",
     "url": "https://github.com/tokgozmusa/snake-react.git"
   },
-  "homepage": "http://tokgozmusa.github.io/snake-react",
   "private": true,
   "devDependencies": {
     "gh-pages": "^0.12.0",
-    "react-scripts": "0.8.5"
+    "git-scripts": "^0.2.1",
+    "react-scripts": "0.8.5",
+    "surge": "^0.18.0"
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-router": "^3.0.2"
+    "react-dom": "^15.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run build&&gh-pages -d build"
+    "deploy-github": "npm run build&&gh-pages -d build",
+    "deploy-surge": "surge --project ./build --domain snake_react.surge.sh"
   }
 }
