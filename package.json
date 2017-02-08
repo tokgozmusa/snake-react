@@ -10,7 +10,8 @@
     "gh-pages": "^0.12.0",
     "git-scripts": "^0.2.1",
     "react-scripts": "0.8.5",
-    "surge": "^0.18.0"
+    "surge": "^0.18.0",
+    "snyk": "^1.25.0"
   },
   "dependencies": {
     "react": "^15.4.2",
@@ -19,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "snyk test && react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build",
     "deploy-surge": "npm run build&&surge --project ./build --domain snakereact.surge.sh"
