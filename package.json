@@ -5,7 +5,6 @@
     "type": "git",
     "url": "https://github.com/tokgozmusa/snake-react.git"
   },
-  "homepage": "http://tokgozmusa.github.io/snake-react",
   "private": true,
   "devDependencies": {
     "gh-pages": "^0.12.0",
