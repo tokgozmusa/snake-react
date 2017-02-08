@@ -17,4 +17,4 @@ http://snakereact.surge.sh/
 https://snakereact.herokuapp.com/
 
 
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/tokgozmusa)
