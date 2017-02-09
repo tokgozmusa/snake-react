@@ -12,9 +12,9 @@ Snake game will be alive soon :)
 
 https://tokgozmusa.github.io/snake-react/
 
-http://snakereact.surge.sh/
-
 https://snakereact.herokuapp.com/
+
+http://snakereact.surge.sh/
 
 
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/tokgozmusa)
