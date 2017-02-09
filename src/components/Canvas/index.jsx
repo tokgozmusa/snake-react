@@ -10,7 +10,7 @@ var THREAD_SLEEP = 120;
 
 //game canvas sizes, you can change easly
 var SCREEN_WIDTH = 480;
-var SCREEN_HEIGHT = 700;
+var SCREEN_HEIGHT = 640;
 
 var BG_COLOR = "#24AE5E";
 
