@@ -7,14 +7,12 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/tokgozmusa/snake-react/badge.svg)](https://snyk.io/test/github/tokgozmusa/snake-react)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/tokgozmusa/snake-react)
 
-
-Snake game will be alive soon :)
+Snake game is alive! Check the links below.
 
 https://tokgozmusa.github.io/snake-react/
 
 https://snakereact.herokuapp.com/
 
 http://snakereact.surge.sh/
-
 
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/tokgozmusa)
