@@ -14,7 +14,7 @@ class App extends Component {
                     Snake will move here soon :)
                 </p>
                 <div>
-                    Hello world!
+                    Hello world! - v1
                 </div>
             </div>
         );
