@@ -14,7 +14,7 @@ class App extends Component {
                     Snake will move here soon :)
                 </p>
                 <div>
-                    Travis-CI -> Auto deploy to Heroku and Surge - v14
+                    Hello world!
                 </div>
             </div>
         );
