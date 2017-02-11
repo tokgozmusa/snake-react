@@ -16,4 +16,5 @@ ratings:
   - "**.js"
   - "**.jsx"
   - "**.module"
-exclude_paths: []
+exclude_paths:
+  - "src/components/Canvas/index.jsx"
