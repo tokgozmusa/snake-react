@@ -6,6 +6,7 @@
 [![devDependencies Status](https://david-dm.org/tokgozmusa/snake-react/dev-status.svg)](https://david-dm.org/tokgozmusa/snake-react?type=dev)
 [![Known Vulnerabilities](https://snyk.io/test/github/tokgozmusa/snake-react/badge.svg)](https://snyk.io/test/github/tokgozmusa/snake-react)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/tokgozmusa/snake-react)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/tokgozmusa)
 
 Snake game is alive! Check the links below.
 
