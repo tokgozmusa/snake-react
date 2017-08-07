@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './style.css';
-
 
 //every step snake move 20px in game board
 var MOVE_PX = 20;
@@ -54,8 +52,6 @@ class Canvas extends Component {
 
         this.init();
 
-        this.updateCanvas = this.updateCanvas.bind(this);
-        this.snakeThread = this.snakeThread.bind(this);
     }
 
     componentDidMount() {
@@ -75,7 +71,7 @@ class Canvas extends Component {
     }
 
     //this function initialize all variables and snake position
-    init() {
+    init = () => {
         snakeArray = [];
         snakeArray[0] = {x:260, y:400, style:"headright"};
         snakeArray[1] = {x:240, y:400, style:"bodyx"};
@@ -94,14 +90,14 @@ class Canvas extends Component {
     }
 
     //get random point from game board
-    getRandomPoint() {
+    getRandomPoint = () => {
         var x = Math.floor((Math.random() * (SCREEN_WIDTH / MOVE_PX))) * MOVE_PX;
         var y = Math.floor((Math.random() * (SCREEN_HEIGHT / MOVE_PX))) * MOVE_PX;
         return {x, y};
     }
 
     //check if random point on the snake or not
-    isPointOnSnake(randomPoint) {
+    isPointOnSnake = (randomPoint) => {
         for(var i=0;i<snakeArray.length;i++) {
             if(snakeArray[i].x === randomPoint.x && snakeArray[i].y === randomPoint.y) {
                 return true;
@@ -111,7 +107,7 @@ class Canvas extends Component {
     }
 
     //get a valid random point for apple
-    setNewApple() {
+    setNewApple = () => {
         var randomPoint = this.getRandomPoint();
         while(this.isPointOnSnake(randomPoint)) {
             randomPoint = this.getRandomPoint();
@@ -120,7 +116,7 @@ class Canvas extends Component {
         apple.y = randomPoint.y;
     }
 
-    snakeThread() {
+    snakeThread = () => {
         //check if game is over, if user presses 'R' restart the game
         if(isGameOver) {
             if(restartCommand) {
@@ -274,7 +270,7 @@ class Canvas extends Component {
 
 
     //this function draws the game on canvas
-    updateCanvas() {
+    updateCanvas = () => {
         var ctx = this.refs.canvas.getContext('2d');
 
         //clean the screen
