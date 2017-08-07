@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 
 // every step snake move 20px in game board
 var MOVE_PX = 20
+
 // every 120 miliseconds snake positions are updated and screen is refreshed
 var THREAD_SLEEP = 120
+
 // game canvas sizes, you can change easly
 var SCREEN_WIDTH = 480
 var SCREEN_HEIGHT = 640
@@ -29,7 +31,7 @@ class Canvas extends Component {
   constructor (props) {
     super(props)
 
-        // Snake textures for different parts of snake body
+    // Snake textures for different parts of snake body
     snakeImage['headright'] = document.getElementById('headright')
     snakeImage['headup'] = document.getElementById('headup')
     snakeImage['headdown'] = document.getElementById('headdown')
@@ -66,8 +68,8 @@ class Canvas extends Component {
 
   }
 
-    // this function initialize all variables and snake position
-  init () {
+  // this function initialize all variables and snake position
+  init = () => {
     snakeArray = []
     snakeArray[0] = {x: 260, y: 400, style: 'headright'}
     snakeArray[1] = {x: 240, y: 400, style: 'bodyx'}
@@ -85,14 +87,14 @@ class Canvas extends Component {
     this.setNewApple()
   }
 
-    // get random point from game board
+  // get random point from game board
   getRandomPoint = () => {
     var x = Math.floor((Math.random() * (SCREEN_WIDTH / MOVE_PX))) * MOVE_PX
     var y = Math.floor((Math.random() * (SCREEN_HEIGHT / MOVE_PX))) * MOVE_PX
     return {x, y}
   }
 
-    // check if random point on the snake or not
+  // check if random point on the snake or not
   isPointOnSnake = (randomPoint) => {
     for (var i = 0; i < snakeArray.length; i++) {
       if (snakeArray[i].x === randomPoint.x && snakeArray[i].y === randomPoint.y) {
@@ -102,7 +104,7 @@ class Canvas extends Component {
     return false
   }
 
-    // get a valid random point for apple
+  // get a valid random point for apple
   setNewApple = () => {
     var randomPoint = this.getRandomPoint()
     while (this.isPointOnSnake(randomPoint)) {
@@ -113,7 +115,7 @@ class Canvas extends Component {
   }
 
   snakeThread = () => {
-        // check if game is over, if user presses 'R' restart the game
+    // check if game is over, if user presses 'R' restart the game
     if (isGameOver) {
       if (restartCommand) {
         this.init()
@@ -121,7 +123,7 @@ class Canvas extends Component {
       return
     }
 
-        // update snake position
+    // update snake position
     var xTmp = snakeArray[0].x
     var yTmp = snakeArray[0].y
     if (snakeDirection === 'left') {
@@ -136,20 +138,28 @@ class Canvas extends Component {
 
     var tmpItem = snakeArray.pop()
 
-        // snake can move with mirror effect, that it can go other side if it touches
-        // to bounds
-    if (snakeArray[0].x < 0 && snakeDirection === 'left') { snakeArray[0].x = SCREEN_WIDTH - MOVE_PX } else if (snakeArray[0].x >= SCREEN_WIDTH && snakeDirection === 'right') { snakeArray[0].x = 0 } else if (snakeArray[0].y < 0 && snakeDirection === 'up') { snakeArray[0].y = SCREEN_HEIGHT - MOVE_PX } else if (snakeArray[0].y >= SCREEN_HEIGHT && snakeDirection === 'down') { snakeArray[0].y = 0 }
+    // snake can move with mirror effect, that it can go other side if it touches
+    // to bounds
+    if (snakeArray[0].x < 0 && snakeDirection === 'left') {
+      snakeArray[0].x = SCREEN_WIDTH - MOVE_PX
+    } else if (snakeArray[0].x >= SCREEN_WIDTH && snakeDirection === 'right') {
+      snakeArray[0].x = 0
+    } else if (snakeArray[0].y < 0 && snakeDirection === 'up') {
+      snakeArray[0].y = SCREEN_HEIGHT - MOVE_PX
+    } else if (snakeArray[0].y >= SCREEN_HEIGHT && snakeDirection === 'down') {
+      snakeArray[0].y = 0
+    }
 
     isKeyApplied = true
 
-        // if snake eats apple, make snake bigger and request new apple on the map
+    // if snake eats apple, make snake bigger and request new apple on the map
     if (snakeArray[0].x === apple.x && snakeArray[0].y === apple.y) {
       snakeArray.push(tmpItem)
       this.setNewApple()
       score += applePoint
     }
 
-        // if snake touches itself game is over
+    // if snake touches itself game is over
     for (var i = 1; i < snakeArray.length; i++) {
       if (snakeArray[0].x === snakeArray[i].x && snakeArray[0].y === snakeArray[i].y) {
         isGameOver = true
@@ -157,50 +167,118 @@ class Canvas extends Component {
     }
 
     for (i = 1; i < snakeArray.length - 1; i++) {
-      if (snakeArray[i].y === snakeArray[i - 1].y && snakeArray[i].y === snakeArray[i + 1].y) { snakeArray[i].style = 'bodyx' } else if (snakeArray[i].x === snakeArray[i - 1].x && snakeArray[i].x === snakeArray[i + 1].x) { snakeArray[i].style = 'bodyy' } else {
+      if (snakeArray[i].y === snakeArray[i - 1].y && snakeArray[i].y === snakeArray[i + 1].y) {
+        snakeArray[i].style = 'bodyx'
+      } else if (snakeArray[i].x === snakeArray[i - 1].x && snakeArray[i].x === snakeArray[i + 1].x) {
+        snakeArray[i].style = 'bodyy'
+      } else {
         if (snakeArray[i].x === SCREEN_WIDTH - MOVE_PX && (snakeArray[i + 1].x === 0 || snakeArray[i - 1].x === 0)) {
-          if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner1' } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) { snakeArray[i].style = 'corner1' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner4' } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) { snakeArray[i].style = 'corner4' }
+          if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner1'
+          } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) {
+            snakeArray[i].style = 'corner1'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner4'
+          } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) {
+            snakeArray[i].style = 'corner4'
+          }
         } else if (snakeArray[i].x === 0 && (snakeArray[i + 1].x === SCREEN_WIDTH - MOVE_PX || snakeArray[i - 1].x === SCREEN_WIDTH - MOVE_PX)) {
-          if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner2' } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) { snakeArray[i].style = 'corner2' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner3' } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) { snakeArray[i].style = 'corner3' }
+          if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner2'
+          } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) {
+            snakeArray[i].style = 'corner2'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner3'
+          } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) {
+            snakeArray[i].style = 'corner3'
+          }
         } else if (snakeArray[i].y === 0 && (snakeArray[i + 1].y === SCREEN_HEIGHT - MOVE_PX || snakeArray[i - 1].y === SCREEN_HEIGHT - MOVE_PX)) {
-          if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) { snakeArray[i].style = 'corner3' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner3' } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) { snakeArray[i].style = 'corner4' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner4' }
+          if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) {
+            snakeArray[i].style = 'corner3'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner3'
+          } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) {
+            snakeArray[i].style = 'corner4'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner4'
+          }
         } else if (snakeArray[i].y === SCREEN_HEIGHT - MOVE_PX && (snakeArray[i + 1].y === 0 || snakeArray[i - 1].y === 0)) {
-          if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) { snakeArray[i].style = 'corner2' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner2' } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) { snakeArray[i].style = 'corner1' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner1' }
+          if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) {
+            snakeArray[i].style = 'corner2'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner2'
+          } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) {
+            snakeArray[i].style = 'corner1'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner1'
+          }
         } else {
-          if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner1' } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) { snakeArray[i].style = 'corner2' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner3' } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) { snakeArray[i].style = 'corner4' } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) { snakeArray[i].style = 'corner1' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner2' } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) { snakeArray[i].style = 'corner3' } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) { snakeArray[i].style = 'corner4' }
+          if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner1'
+          } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) {
+            snakeArray[i].style = 'corner2'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner3'
+          } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) {
+            snakeArray[i].style = 'corner4'
+          } else if (snakeArray[i + 1].x > snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y > snakeArray[i].y) {
+            snakeArray[i].style = 'corner1'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x < snakeArray[i].x && snakeArray[i + 1].y > snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner2'
+          } else if (snakeArray[i + 1].x < snakeArray[i].x && snakeArray[i - 1].x === snakeArray[i].x && snakeArray[i + 1].y === snakeArray[i].y && snakeArray[i - 1].y < snakeArray[i].y) {
+            snakeArray[i].style = 'corner3'
+          } else if (snakeArray[i + 1].x === snakeArray[i].x && snakeArray[i - 1].x > snakeArray[i].x && snakeArray[i + 1].y < snakeArray[i].y && snakeArray[i - 1].y === snakeArray[i].y) {
+            snakeArray[i].style = 'corner4'
+          }
         }
       }
     }
 
-        // determine the tail shape
-    if (snakeArray[snakeArray.length - 1].x === SCREEN_WIDTH - MOVE_PX && snakeArray[snakeArray.length - 2].x === 0) { snakeArray[snakeArray.length - 1].style = 'tailright' } else if (snakeArray[snakeArray.length - 1].y === SCREEN_HEIGHT - MOVE_PX && snakeArray[snakeArray.length - 2].y === 0) { snakeArray[snakeArray.length - 1].style = 'taildown' } else if (snakeArray[snakeArray.length - 1].x === 0 && snakeArray[snakeArray.length - 2].x === SCREEN_WIDTH - MOVE_PX) { snakeArray[snakeArray.length - 1].style = 'tailleft' } else if (snakeArray[snakeArray.length - 1].y === 0 && snakeArray[snakeArray.length - 2].y === SCREEN_HEIGHT - MOVE_PX) { snakeArray[snakeArray.length - 1].style = 'tailup' } else if (snakeArray[snakeArray.length - 2].x > snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y === snakeArray[snakeArray.length - 1].y) { snakeArray[snakeArray.length - 1].style = 'tailright' } else if (snakeArray[snakeArray.length - 2].x === snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y > snakeArray[snakeArray.length - 1].y) { snakeArray[snakeArray.length - 1].style = 'taildown' } else if (snakeArray[snakeArray.length - 2].x < snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y === snakeArray[snakeArray.length - 1].y) { snakeArray[snakeArray.length - 1].style = 'tailleft' } else if (snakeArray[snakeArray.length - 2].x === snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y < snakeArray[snakeArray.length - 1].y) { snakeArray[snakeArray.length - 1].style = 'tailup' }
+    // determine the tail shape
+    if (snakeArray[snakeArray.length - 1].x === SCREEN_WIDTH - MOVE_PX && snakeArray[snakeArray.length - 2].x === 0) {
+      snakeArray[snakeArray.length - 1].style = 'tailright'
+    } else if (snakeArray[snakeArray.length - 1].y === SCREEN_HEIGHT - MOVE_PX && snakeArray[snakeArray.length - 2].y === 0) {
+      snakeArray[snakeArray.length - 1].style = 'taildown'
+    } else if (snakeArray[snakeArray.length - 1].x === 0 && snakeArray[snakeArray.length - 2].x === SCREEN_WIDTH - MOVE_PX) {
+      snakeArray[snakeArray.length - 1].style = 'tailleft'
+    } else if (snakeArray[snakeArray.length - 1].y === 0 && snakeArray[snakeArray.length - 2].y === SCREEN_HEIGHT - MOVE_PX) {
+      snakeArray[snakeArray.length - 1].style = 'tailup'
+    } else if (snakeArray[snakeArray.length - 2].x > snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y === snakeArray[snakeArray.length - 1].y) {
+      snakeArray[snakeArray.length - 1].style = 'tailright'
+    } else if (snakeArray[snakeArray.length - 2].x === snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y > snakeArray[snakeArray.length - 1].y) {
+      snakeArray[snakeArray.length - 1].style = 'taildown'
+    } else if (snakeArray[snakeArray.length - 2].x < snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y === snakeArray[snakeArray.length - 1].y) {
+      snakeArray[snakeArray.length - 1].style = 'tailleft'
+    } else if (snakeArray[snakeArray.length - 2].x === snakeArray[snakeArray.length - 1].x && snakeArray[snakeArray.length - 2].y < snakeArray[snakeArray.length - 1].y) {
+      snakeArray[snakeArray.length - 1].style = 'tailup'
+    }
 
     this.updateCanvas()
   }
 
-    // this function draws the game on canvas
+  // this function draws the game on canvas
   updateCanvas = () => {
     var ctx = this.refs.canvas.getContext('2d')
 
-        // clean the screen
+    // clean the screen
     ctx.fillStyle = BG_COLOR
     ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-        // draw snake
+    // draw snake
     for (var i = 0; i < snakeArray.length; i++) {
       ctx.drawImage(snakeImage[snakeArray[i].style], snakeArray[i].x, snakeArray[i].y)
     }
 
-        // draw apple
+    // draw apple
     ctx.drawImage(apple.image, apple.x, apple.y)
 
-        // draw score
+    // draw score
     ctx.font = '20px Arial'
     ctx.textAlign = 'left'
     ctx.fillStyle = 'white'
     ctx.fillText('Score: ' + score, 30, 30)
 
-        // show game over title
+    // show game over title
     if (isGameOver) {
       ctx.font = '50px Arial'
       ctx.fillStyle = 'red'
