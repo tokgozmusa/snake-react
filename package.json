@@ -27,7 +27,10 @@
     "deploy": "npm run build&&gh-pages -d build",
     "deploy-surge": "npm run build&&surge --project ./build --domain snakereact.surge.sh",
     "lint": "standard --verbose | snazzy",
-    "fixcode": "standard --fix"
+    "fixcode": "standard --fix",
+    "precommit": "npm run git-hook",
+    "prepush": "npm run git-hook",
+    "git-hook": "npm run lint -s"
   },
   "config": {
     "ghooks": {
