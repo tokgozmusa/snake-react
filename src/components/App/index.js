@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div className='App-header'>
-          <h1>Snake - React - v4</h1>
+          <h1>Snake - React - v5</h1>
         </div>
         <br />
         <Canvas />
