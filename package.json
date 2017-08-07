@@ -28,5 +28,10 @@
     "deploy-surge": "npm run build&&surge --project ./build --domain snakereact.surge.sh",
     "lint": "standard --verbose | snazzy",
     "fixcode": "standard --fix"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
