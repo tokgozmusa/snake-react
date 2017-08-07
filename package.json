@@ -11,7 +11,9 @@
     "git-scripts": "^0.2.1",
     "react-scripts": "1.0.10",
     "snyk": "^1.38.1",
-    "surge": "^0.19.0"
+    "standard": "^10.0.3",
+    "surge": "^0.19.0",
+    "snazzy": "^7.0.0"
   },
   "dependencies": {
     "react": "^15.6.1",
@@ -23,6 +25,8 @@
     "test": "snyk test && react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build&&gh-pages -d build",
-    "deploy-surge": "npm run build&&surge --project ./build --domain snakereact.surge.sh"
+    "deploy-surge": "npm run build&&surge --project ./build --domain snakereact.surge.sh",
+    "lint": "standard --verbose | snazzy",
+    "fixcode": "standard --fix"
   }
 }
