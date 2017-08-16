@@ -1,4 +1,4 @@
-# Snake Game using React [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/tokgozmusa) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/tokgozmusa/snake-react) [![License MIT](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/tokgozmusa/snake-react/blob/master/LICENSE.md)
+# Snake Game using React [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/tokgozmusa) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/tokgozmusa/snake-react) [![License MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/tokgozmusa/snake-react/blob/master/LICENSE.md)
 
 [![Build Status](https://travis-ci.org/tokgozmusa/snake-react.svg?branch=master)](https://travis-ci.org/tokgozmusa/snake-react)
 [![dependencies Status](https://david-dm.org/tokgozmusa/snake-react/status.svg)](https://david-dm.org/tokgozmusa/snake-react)
